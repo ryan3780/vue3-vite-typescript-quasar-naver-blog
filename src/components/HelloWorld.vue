@@ -38,18 +38,19 @@
 
 <script lang="ts">
 import { ref, defineComponent } from 'vue'
+import axios from 'axios'
 
 let text: string = ''
 
 const columns = [
-  { name: 'titleWithInspectMessage', align: 'center', label: '제목', field: 'titleWithInspectMessage' },
+  { name: 'titleWithInspectMessage', align: 'center' as 'center', label: '제목', field: 'titleWithInspectMessage' },
   {
     name: 'logNo',
     align: 'center',
     label: '링크',
     field: 'logNo',
   },
-  { name: 'keyword', label: '키워드', field: 'keyword', align: 'center' },
+  { name: 'keyword', label: '키워드', field: 'keyword', align: 'center' as 'center' },
 ]
 
 export default defineComponent({
