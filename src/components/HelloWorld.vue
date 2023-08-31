@@ -46,7 +46,7 @@ const columns = [
   { name: 'titleWithInspectMessage', align: 'center' as 'center', label: '제목', field: 'titleWithInspectMessage' },
   {
     name: 'logNo',
-    align: 'center',
+    align: 'center' as 'center',
     label: '링크',
     field: 'logNo',
   },
