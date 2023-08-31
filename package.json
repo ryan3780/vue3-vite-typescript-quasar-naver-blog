@@ -1,0 +1,24 @@
+{
+  "name": "vite-ts",
+  "version": "0.0.0",
+  "scripts": {
+    "dev": "vite",
+    "build": "vue-tsc --noEmit && vite build",
+    "serve": "vite preview"
+  },
+  "devDependencies": {
+    "@quasar/vite-plugin": "^1.0.4",
+    "@types/node": "^16.6.1",
+    "@vitejs/plugin-vue": "^1.6.0",
+    "@vue/compiler-sfc": "^3.2.6",
+    "sass": "^1.32.0",
+    "typescript": "^4.3.2",
+    "vite": "^2.4.4",
+    "vue-tsc": "^0.2.2"
+  },
+  "dependencies": {
+    "@quasar/extras": "^1.12.4",
+    "quasar": "^2.5.0",
+    "vue": "^3.2.6"
+  }
+}
