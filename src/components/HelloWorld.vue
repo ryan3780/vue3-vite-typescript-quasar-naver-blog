@@ -2,26 +2,16 @@
   <head>
     <title>인기글 확인하기</title>
   </head>
-  <h1>{{ msg }}</h1>
-  <h2>{{ text }}</h2>
+  <h6>인기글 {{ text }}</h6>
   <q-input v-model="text" standout label="블로그 아이디" @keyup.enter="click" />
   <br />
   <br />
-  <q-btn color="white" text-color="black" label="Search" @click="click" />
+  <!-- <q-btn color="white" text-color="black" label="Search" @click="click" /> -->
 
-  <q-table
-    class="q-mt-xl"
-    :grid="$q.screen.lt.sm"
-    flat
-    bordered
-    title="인기글"
-    :columns="columns"
-    :rows="rows"
-    :rows-per-page-options="[0]"
-  >
+  <q-table :grid="$q.screen.lt.md" flat bordered :columns="columns" :rows="rows" :rows-per-page-options="[0]">
     <template v-slot:body="props">
-      <q-tr :props="props">
-        <q-td key="titleWithInspectMessage" :props="props">
+      <q-tr :props="props" class="text-no-wrap">
+        <q-td key="titleWithInspectMessage" :props="props" class="text">
           {{ props.row.titleWithInspectMessage }}
         </q-td>
         <q-td key="logNo" class="cursor-pointer" :props="props" @click="clickItem(props.row.logNo)">
@@ -44,14 +34,27 @@ import { useQuasar } from 'quasar'
 let text: string = ''
 
 const columns = [
-  { name: 'titleWithInspectMessage', align: 'center' as 'center', label: '제목', field: 'titleWithInspectMessage' },
+  {
+    name: 'titleWithInspectMessage',
+    align: 'center' as 'center',
+    label: '제목',
+    field: 'titleWithInspectMessage',
+    style: 'font-size : 16px',
+  },
   {
     name: 'logNo',
     align: 'center' as 'center',
     label: '링크',
     field: 'logNo',
+    style: 'font-size : 14px',
   },
-  { name: 'keyword', label: '키워드', field: 'keyword', align: 'center' as 'center' },
+  {
+    name: 'keyword',
+    label: '키워드',
+    field: 'keyword',
+    align: 'center' as 'center',
+    style: 'white-space: break-spaces; font-size : 15px',
+  },
 ]
 
 export default defineComponent({
