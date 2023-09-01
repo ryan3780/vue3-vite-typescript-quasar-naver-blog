@@ -37,8 +37,9 @@
 </template>
 
 <script lang="ts">
-import { ref, defineComponent } from 'vue'
+import { ref, defineComponent, onBeforeUnmount } from 'vue'
 import axios from 'axios'
+import { useQuasar } from 'quasar'
 
 let text: string = ''
 
@@ -69,9 +70,24 @@ export default defineComponent({
       keyword: [],
     }
   },
+  setup() {
+    const $q = useQuasar()
+
+    return {
+      showLoading(isFetched: boolean) {
+        if (isFetched) {
+          $q.loading.hide()
+        } else {
+          $q.loading.show()
+        }
+      },
+    }
+  },
 
   methods: {
     async click() {
+      this.showLoading(false)
+
       this.keyword = []
 
       const URL = 'https://flask-hello-world-jxj6vgw8u-ryan3780.vercel.app'
@@ -89,6 +105,7 @@ export default defineComponent({
       })
 
       if (data.data.error || data.data.result.popularPostList.length === 0) {
+        this.showLoading(true)
         alert('블로그가 없거나, 인기글이 없음')
         return
       }
@@ -114,6 +131,10 @@ export default defineComponent({
       this.keyword.map((item, idx) => {
         this.rows[idx]['keyword'] = item.replaceAll(',', ' ')
       })
+
+      if (resData.length > 0) {
+        this.showLoading(true)
+      }
     },
     clickItem(url) {
       window.open(url)
