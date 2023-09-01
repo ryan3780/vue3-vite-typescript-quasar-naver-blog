@@ -88,6 +88,11 @@ export default defineComponent({
         },
       })
 
+      if (data.data.error || data.data.result.popularPostList.length === 0) {
+        alert('블로그가 없거나, 인기글이 없음')
+        return
+      }
+
       const resData = data.data.result.popularPostList
 
       for (let i = 0; i < resData.length; i++) {
