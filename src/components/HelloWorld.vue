@@ -28,6 +28,7 @@
 
 <script lang="ts">
 import { ref, defineComponent, onBeforeUnmount } from 'vue'
+import { watch } from '@vue/runtime-core'
 import axios from 'axios'
 import { useQuasar } from 'quasar'
 
@@ -71,6 +72,7 @@ export default defineComponent({
       rows: [],
       columns,
       keyword: [],
+      prevText: '',
     }
   },
   setup() {
@@ -89,6 +91,10 @@ export default defineComponent({
 
   methods: {
     async click() {
+      if (this.prevText.replaceAll(' ', '') === this.text.replaceAll(' ', '')) {
+        return
+      }
+
       this.showLoading(false)
 
       this.keyword = []
@@ -99,7 +105,7 @@ export default defineComponent({
 
       const KEYWORD_URL = `${URL}/api/keyword-list`
 
-      let blogID: string = this.text
+      let blogID: string = this.text.replaceAll(' ', '')
 
       const data = await axios.get(POPULAR_URL, {
         params: {
@@ -137,6 +143,7 @@ export default defineComponent({
 
       if (resData.length > 0) {
         this.showLoading(true)
+        this.prevText = this.text
       }
     },
     clickItem(url) {
