@@ -3,16 +3,16 @@
     <title>인기글 확인하기</title>
   </head>
   <div class="row justify-evenly items-center">
-    <div>인기글 {{ text }}</div>
-    <div class="row">
+    <div>인기글 {{ text }} 현재 방문자 : {{ dayVisitation }}명</div>
+    <!-- <div class="row">
       <q-input standout="bg-teal text-white" label="해쉬태그 생성" style="width: 500px" v-model="hashTag" />
       <q-btn color="secondary" text-color="white" label="생성하기" @click="makeHashTag" />
-    </div>
+    </div> -->
   </div>
-  <div>
+  <!-- <div>
     <span>{{ newHashTag }}</span>
     <q-btn color="secondary" text-color="white" label="COPY" @click="copyHashTag" class="q-ml-md" />
-  </div>
+  </div> -->
   <q-input v-model="text" standout label="블로그 아이디" @keyup.enter="click" />
   <br />
   <br />
@@ -85,6 +85,7 @@ export default defineComponent({
       prevText: '',
       hashTag: '',
       newHashTag: '',
+      dayVisitation: '',
     }
   },
   setup() {
@@ -120,11 +121,13 @@ export default defineComponent({
 
       this.keyword = []
 
-      const URL = 'https://flask-hello-world-jxj6vgw8u-ryan3780.vercel.app'
+      const URL = 'https://flask-hello-world-hazel-tau.vercel.app'
 
       const POPULAR_URL = `${URL}/api/popular-post-list`
 
       const KEYWORD_URL = `${URL}/api/keyword-list`
+
+      const DAYVISIT_URL = `${URL}/api/day`
 
       let blogID: string = this.text.replaceAll(' ', '')
 
@@ -162,10 +165,18 @@ export default defineComponent({
         this.rows[idx]['keyword'] = item.replaceAll(',', ' ')
       })
 
+      const dayVisit = await axios.get(DAYVISIT_URL, {
+        params: {
+          blog_id: blogID,
+        },
+      })
+
       if (resData.length > 0) {
         this.showLoading(true)
         this.prevText = this.text
       }
+
+      this.dayVisitation = dayVisit.data.result.dayVisitorCount
     },
     clickItem(url) {
       window.open(url)
