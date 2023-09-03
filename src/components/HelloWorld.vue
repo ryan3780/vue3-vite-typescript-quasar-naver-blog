@@ -3,7 +3,7 @@
     <title>인기글 확인하기</title>
   </head>
   <div class="row justify-evenly items-center">
-    <div>인기글 {{ text }} 현재 방문자 : {{ dayVisitation }}명</div>
+    <div style="font-size: 20px">인기글 {{ text }} 현재 방문자 : {{ dayVisitation }}명</div>
     <!-- <div class="row">
       <q-input standout="bg-teal text-white" label="해쉬태그 생성" style="width: 500px" v-model="hashTag" />
       <q-btn color="secondary" text-color="white" label="생성하기" @click="makeHashTag" />
