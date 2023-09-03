@@ -2,7 +2,17 @@
   <head>
     <title>인기글 확인하기</title>
   </head>
-  <h6>인기글 {{ text }}</h6>
+  <div class="row justify-evenly items-center">
+    <div>인기글 {{ text }}</div>
+    <div class="row">
+      <q-input standout="bg-teal text-white" label="해쉬태그 생성" style="width: 500px" v-model="hashTag" />
+      <q-btn color="secondary" text-color="white" label="생성하기" @click="makeHashTag" />
+    </div>
+  </div>
+  <div>
+    <span>{{ newHashTag }}</span>
+    <q-btn color="secondary" text-color="white" label="COPY" @click="copyHashTag" class="q-ml-md" />
+  </div>
   <q-input v-model="text" standout label="블로그 아이디" @keyup.enter="click" />
   <br />
   <br />
@@ -15,7 +25,7 @@
           {{ props.row.titleWithInspectMessage }}
         </q-td>
         <q-td key="logNo" class="cursor-pointer" :props="props" @click="clickItem(props.row.logNo)">
-          {{ props.row.logNo }}
+          <a href="#">새창에서 보기</a>
         </q-td>
         <q-td key="keyword" :props="props">
           {{ props.row.keyword }}
@@ -73,6 +83,8 @@ export default defineComponent({
       columns,
       keyword: [],
       prevText: '',
+      hashTag: '',
+      newHashTag: '',
     }
   },
   setup() {
@@ -90,6 +102,15 @@ export default defineComponent({
   },
 
   methods: {
+    copyHashTag() {
+      navigator.clipboard.writeText(this.newHashTag)
+    },
+    makeHashTag() {
+      const tag = this.hashTag.replaceAll(',', ' ')
+
+      this.newHashTag = tag
+    },
+
     async click() {
       if (this.prevText.replaceAll(' ', '') === this.text.replaceAll(' ', '')) {
         return
