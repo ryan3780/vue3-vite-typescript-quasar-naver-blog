@@ -121,7 +121,7 @@ export default defineComponent({
 
       this.keyword = []
 
-      const URL = 'https://flask-hello-world-hazel-tau.vercel.app'
+      const URL = 'https://flask-hello-world-ryan3780.vercel.app'
 
       const POPULAR_URL = `${URL}/api/popular-post-list`
 
